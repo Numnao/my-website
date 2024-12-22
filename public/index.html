@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login and Signup</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 20px;
+        }
+        form {
+            display: inline-block;
+            margin: 20px auto;
+        }
+        input {
+            margin: 5px;
+            padding: 10px;
+            width: 300px;
+        }
+        button {
+            padding: 10px 20px;
+            background: #007bff;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <h1>Login</h1>
+    <form id="loginForm">
+        <input type="text" placeholder="Username" id="loginUsername" required><br>
+        <input type="password" placeholder="Password" id="loginPassword" required><br>
+        <button type="button" onclick="login()">Login</button>
+    </form>
+
+    <h1>Sign Up</h1>
+    <form id="signupForm">
+        <input type="text" placeholder="Username" id="signupUsername" required><br>
+        <input type="password" placeholder="Password" id="signupPassword" required><br>
+        <button type="button" onclick="signup()">Sign Up</button>
+    </form>
+
+    <script>
+        async function login() {
+            const username = document.getElementById('loginUsername').value;
+            const password = document.getElementById('loginPassword').value;
+
+            const response = await fetch('/login', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ username, password })
+            });
+            const result = await response.json();
+            alert(result.message);
+        }
+
+        async function signup() {
+            const username = document.getElementById('signupUsername').value;
+            const password = document.getElementById('signupPassword').value;
+
+            const response = await fetch('/signup', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ username, password })
+            });
+            const result = await response.json();
+            alert(result.message);
+        }
+    </script>
+</body>
+</html>
